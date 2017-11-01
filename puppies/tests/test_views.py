@@ -136,14 +136,16 @@ class UpdateSinglePuppyTest(TestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
 
+class DeleteSinglePuppyTest(TestCase):
+    """ Test module for deleting an existing puppy record """
 
+    def setUp(self):
+        self.moana = Puppy.objects.create(
+            name='Moana', age='3', breed='Chihuahua', color='white')
+        self.chinku = Puppy.objects.create(
+            name='Chinku', age=5, breed='Shih Tzu', color='Brown')
 
-
-
-
-
-
-
-
-
-
+    def test_valid_delete_puppy(self):
+        response = client.delete(
+            reverse('get_delete_update_puppy', kwargs={'pk': self.moana.pk}))
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)

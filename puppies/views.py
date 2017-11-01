@@ -29,7 +29,8 @@ def get_delete_update_puppy(request, pk):
 
     # DELETE a single puppy
     elif request.method == 'DELETE':
-        return Response({})
+        puppy.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 @api_view(['GET', 'POST'])
