@@ -17,11 +17,18 @@ def get_delete_update_puppy(request, pk):
     if request.method == 'GET':
         serializer = PuppySerializer(puppy)
         return Response(serializer.data)
+
+    # UPDATE details of a single puppy
+    if request.method == 'PUT':
+        serializer = PuppySerializer(puppy, data=request.data)
+        # We serialize and validate the request data.
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_204_NO_CONTENT)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
     # DELETE a single puppy
     elif request.method == 'DELETE':
-        return Response({})
-    # UPDATE details of a single puppy
-    elif request.method == 'PUT':
         return Response({})
 
 
