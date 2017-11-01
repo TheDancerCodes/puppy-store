@@ -42,6 +42,8 @@ def get_post_puppies(request):
             'breed': request.data.get('breed'),
             'color': request.data.get('color')
         }
+        # Insert a new record by serializing and validating the request data
+        # before inserting to the database.
         serializer = PuppySerializer(data=data)
         if serializer.is_valid():
             serializer.save()
